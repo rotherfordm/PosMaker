@@ -44,7 +44,7 @@ $(document).ready(function(){
         $("#textBoxes").html($("#textBoxes").html() + "\
         <div id='d"+counter+"' >\
             <label for='t"+counter+"'> Attribute "+counter+"</label>\
-            <input class='form-control' type='textbox' id='t"+counter+"' \>\
+            <input class='form-control' type='textbox' name='t"+counter+"' id='t"+counter+"' \>\
             \
             <div class='dropdown'>\
                 <a class='btn btn-secondary dropdown-toggle' role='button' id='dropdownMenuLink"+counter+"' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>\

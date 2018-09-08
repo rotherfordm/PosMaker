@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
 use App\Product;
 use DB; //library for sql queries
 
@@ -49,10 +50,24 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required',
+            'product' => 'required',
             'cover_image' => 'image|nullable|max:1999'
         ]);
+        //return $_POST['t1'];;
+        //return Input::all();
+       // return Input::get('t1');
+        //return dir($request->input('t1'));
+        //return $request->input('t1');
+
+        $inputs = array();
+        //try to get all text data exit if the last one doesnt exist
+        for($x = 1; $x < 20; $x++){
+            if($request->input('t'.$x) !== null)
+            {
+                array_push($inputs, $request->input('t'.$x));
+            }
+        }
+        return $inputs;
 
         if($request->hasFile('cover_image')){
             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
