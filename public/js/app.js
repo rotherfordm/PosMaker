@@ -13909,10 +13909,6 @@ var app = new Vue({
     el: '#app'
 });
 
-function setType(id, text) {
-    $(id).text(text);
-}
-
 $(document).ready(function () {
 
     var counter = 2;
@@ -13924,10 +13920,22 @@ $(document).ready(function () {
             alert("Too many Attributes");
             return false;
         }
-        $("#textBoxes").html($("#textBoxes").html() + "<div id='d" + counter + "' >\
-        <label for='t2'> Attribute " + counter + "</label>\
-        <input class='form-control' type='textbox' id='t" + counter + "' ></div>\n");
-        ++counter;
+        /*
+        $("#textBoxes").html($("#textBoxes").html() + "<div id='d"+counter+"' >\
+        <label for='t2'> Attribute "+counter+"</label>\
+        <input class='form-control' type='textbox' id='t"+counter+"' ></div>\n");
+        ++counter;*/
+
+        $("#textBoxes").html($("#textBoxes").html() + "\
+        <div class='dropdown'>\
+        <a class='btn btn-secondary dropdown-toggle' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>\
+          Pick A Type\
+        </a>\
+        <div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>\          <a class='dropdown-item' onclick='setType(\"#dropdownMenuLink\",\"Text\")' value='textype' id='texttype'>Text</a>\
+          <a class='dropdown-item' onclick=\"setType('#dropdownMenuLink','Number')\" id='numbertype'>Number</a>\
+        </div>\
+        </div>\
+        ");
     });
 
     $("#remove").click(function () {
@@ -13943,7 +13951,7 @@ $(document).ready(function () {
     {
         $("#dropdownMenuLink").text("Text");
     }); 
-     $("#numbertype").click(function () 
+      $("#numbertype").click(function () 
     {
         $("#dropdownMenuLink").text("Number");
     }); */
