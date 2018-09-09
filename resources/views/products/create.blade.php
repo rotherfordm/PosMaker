@@ -6,7 +6,7 @@
     {!! Form::open(['action' => 'ProductsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
             {{Form::label('product', 'Product')}}
-            {{Form::text('product', '', ['class' => 'form-control', 'placeholder' => 'Product'])}}
+            {{Form::text('product', '', ['class' => 'form-control', 'placeholder' => 'Product Name'])}}
         </div>
         <div class="form-group">
             </div>
@@ -44,21 +44,22 @@ $(document).ready(function(){
         $("#textBoxes").html($("#textBoxes").html() + "\
         <div id='d"+counter+"' >\
             <label for='t"+counter+"'> Attribute "+counter+"</label>\
-            <input class='form-control' type='textbox' name='t"+counter+"' id='t"+counter+"' \>\
+            <input class='form-control' placeholder='Attribute Name' type='textbox' name='t"+counter+"' id='t"+counter+"' \>\
             \
             <div class='dropdown'>\
-                <a class='btn btn-secondary dropdown-toggle' role='button' id='dropdownMenuLink"+counter+"' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>\
+                <a class='btn btn-secondary dropdown-toggle' role='button' name='dropdownMenuLink"+counter+"' id='dropdownMenuLink"+counter+"' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>\
                     Pick A Type\
                 </a>\
+                <input type=\"hidden\" name='value"+counter+"' id='value"+counter+"'>\
                 <div class='dropdown-menu' aria-labelledby='dropdownMenuLink"+counter+"'>\          \
-                    <a class='dropdown-item' onclick='setType(\"#dropdownMenuLink"+counter+"\",\"Text\")' value='texttype' id='texttype"+counter+"'>Text</a>\
-                    <a class='dropdown-item' onclick=\"setType('#dropdownMenuLink"+counter+"','Number')\" id='numbertype"+counter+"'>Number</a>\
+                \
+                    <a class='dropdown-item' onclick='setType(\"#dropdownMenuLink"+counter+"\",\"Text\","+counter+")' value='texttype' id='texttype"+counter+"'>Text</a>\
+                    <a class='dropdown-item' onclick=\"setType('#dropdownMenuLink"+counter+"','Number',"+counter+")\" id='numbertype"+counter+"'>Number</a>\
                 </div>\
             </div>\
         </div>\
         ");
         ++counter; 
-
     });
 
     $("#remove").click(function () 
@@ -74,10 +75,15 @@ $(document).ready(function(){
 
  });
 
+ function setHiddenInputValue(text, counter){
+    $("#value"+counter).val(text);
+ }
 
-function setType(id, text)
+
+function setType(id, text, counter)
 {
-    $(id).text(text) 
+    $(id).text(text);
+    setHiddenInputValue(text, counter);
 }
 </script>
 

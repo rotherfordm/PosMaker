@@ -53,22 +53,26 @@ class ProductsController extends Controller
             'product' => 'required',
             'cover_image' => 'image|nullable|max:1999'
         ]);
+        //return Input::all();
+        //attempt of getting values by name
         //return $_POST['t1'];;
         //return Input::all();
-       // return Input::get('t1');
+        //return Input::get('t1');
         //return dir($request->input('t1'));
         //return $request->input('t1');
-
+        
         $inputs = array();
-        //try to get all text data exit if the last one doesnt exist
+        //try to get all text data and exit if the last one doesn't exist
         for($x = 1; $x < 20; $x++){
             if($request->input('t'.$x) !== null)
             {
-                array_push($inputs, $request->input('t'.$x));
+                $inputs[] = [$request->input('t'.$x) => Input::get('value'.$x)];
+                //array_push($inputs, $request->input('t'.$x));
             }
         }
         return $inputs;
 
+        //Cover Image upload
         if($request->hasFile('cover_image')){
             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
