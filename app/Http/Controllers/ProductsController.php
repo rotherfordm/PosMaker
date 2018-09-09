@@ -66,11 +66,19 @@ class ProductsController extends Controller
         for($x = 1; $x < 20; $x++){
             if($request->input('t'.$x) !== null)
             {
-                $inputs[] = [$request->input('t'.$x) => Input::get('value'.$x)];
+                print_r(Input::get('value'.$x));
+                array_push($inputs, ["AttributeType".$x => $request->input('t'.$x),
+                "AttributeName".$x => Input::get('value'.$x)]);
                 //array_push($inputs, $request->input('t'.$x));
             }
         }
-        return $inputs;
+        //return $inputs;
+
+        foreach($inputs as $input){
+            print_r($input);
+            //return $input;
+        }
+        return;
 
         //Cover Image upload
         if($request->hasFile('cover_image')){
