@@ -6,7 +6,7 @@
     {!! Form::open(['action' => 'ProductsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
             {{Form::label('product', 'Product')}}
-            {{Form::text('product', '', ['class' => 'form-control', 'placeholder' => 'Product Name'])}}
+            {{Form::text('product_name', '', ['class' => 'form-control', 'placeholder' => 'Product Name'])}}
         </div>
         <div class="form-group">
             </div>

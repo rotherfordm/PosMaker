@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
 use App\Product;
+use App\Attribute;
 use DB; //library for sql queries
 
 class ProductsController extends Controller
@@ -50,35 +51,18 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'product' => 'required',
+            'product_name' => 'required',
             'cover_image' => 'image|nullable|max:1999'
         ]);
-        //return Input::all();
-        //attempt of getting values by name
-        //return $_POST['t1'];;
-        //return Input::all();
-        //return Input::get('t1');
-        //return dir($request->input('t1'));
-        //return $request->input('t1');
         
-        $inputs = array();
-        //try to get all text data and exit if the last one doesn't exist
+        $attributes = array();
         for($x = 1; $x < 20; $x++){
             if($request->input('t'.$x) !== null)
             {
-                print_r(Input::get('value'.$x));
-                array_push($inputs, ["AttributeType".$x => $request->input('t'.$x),
+                array_push($attributes, ["AttributeType".$x => $request->input('t'.$x),
                 "AttributeName".$x => Input::get('value'.$x)]);
-                //array_push($inputs, $request->input('t'.$x));
             }
         }
-        //return $inputs;
-
-        foreach($inputs as $input){
-            print_r($input);
-            //return $input;
-        }
-        return;
 
         //Cover Image upload
         if($request->hasFile('cover_image')){
@@ -92,11 +76,43 @@ class ProductsController extends Controller
         }
 
         $product = new Product;
-        $product->title = $request->input('title');
-        $product->body = $request->input('body');
+        $product->name = $request->input('product_name');
         $product->user_id = auth()->user()->id;
         $product->cover_image = $fileNameToStore;
         $product->save();
+        //$product = Product::find($id);
+        //return $product;
+
+        //Insert Every Attribute into the database
+        $attribute_counter = 1;
+        for($x = 0;$x < count($attributes); $x++)
+        {
+            $product_attribute = new Attribute;
+            $product_attribute->type = $attributes[$x]["AttributeType".$attribute_counter];
+            $product_attribute->name = $attributes[$x]["AttributeName".$attribute_counter];
+            $product_attribute->product_id = $product->id;
+            //return($product_attribute->product_id);
+            $product_attribute->save();
+            return($product_attribute);
+            return;
+            
+            /*
+            return DB::table('attribute')->insert(
+                ['type' => $attributes[$x]["AttributeType".$attribute_counter],
+                 'name' => $attributes[$x]["AttributeName".$attribute_counter],
+                 'product_id' =>  $product->id 
+                 ]
+            ); */
+
+            $attribute_counter++;
+            return($product_attribute);
+         
+            
+        }
+
+        return;
+
+        
 
         return redirect('/products')->with('success', 'Product Created');
     }
@@ -151,8 +167,8 @@ class ProductsController extends Controller
         }
         
         $product = Product::find($id);
-        $product->title = $request->input('title');
-        $product->body = $request->input('body');
+        //$product->title = $request->input('title');
+        //$product->body = $request->input('body');
         if($request->hasFile('cover_image')){
             $product->cover_image = $fileNameToStore;
         }
