@@ -2,11 +2,8 @@
 
 @section('content')
     <a href="/products" class="btn btn-primary">Go Back</a>  
-    <h1>{{$product->title}}</h1>
-
-    <div>
-        {!!$product->body!!}
-    </div>
+    <h1>{{$product->name}}</h1>
+    {{$attributes}}
     <hr>
     <small>Written on {{$product->created_at}} by {{$product->user->name}}</small>
     <hr>

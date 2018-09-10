@@ -7,8 +7,8 @@
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="/storage/cover_images/{{$product->cover_image}}" alt="Card image cap">
                 <div class="card-body">
-                <h3><a href="/products/{{$product->id}}">{{$product->title}}</a></h3>
-                <small>Written on {{$product->created_at}} by {{$product->user->name}}</small>
+                <h3><a href="/products/{{$product->id}}">{{$product->name}}</a></h3>
+                <small>Created on {{$product->created_at}} by {{$product->user->name}}</small>
                 </div>
             </div>
         @endforeach

@@ -91,28 +91,9 @@ class ProductsController extends Controller
             $product_attribute->type = $attributes[$x]["AttributeType".$attribute_counter];
             $product_attribute->name = $attributes[$x]["AttributeName".$attribute_counter];
             $product_attribute->product_id = $product->id;
-            //return($product_attribute->product_id);
             $product_attribute->save();
-            return($product_attribute);
-            return;
-            
-            /*
-            return DB::table('attribute')->insert(
-                ['type' => $attributes[$x]["AttributeType".$attribute_counter],
-                 'name' => $attributes[$x]["AttributeName".$attribute_counter],
-                 'product_id' =>  $product->id 
-                 ]
-            ); */
-
             $attribute_counter++;
-            return($product_attribute);
-         
-            
         }
-
-        return;
-
-        
 
         return redirect('/products')->with('success', 'Product Created');
     }
@@ -126,7 +107,10 @@ class ProductsController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return view('products.show')->with('product', $product);
+        //$attributes = DB::select('SELECT * FROM attributes where attributes.product_id = ' . $id );
+        $attributes = Attribute::where('product_id', $id)->get();
+        //return $attributes;
+        return view('products.show')->with('product', $product)->with('attributes', $attributes);
     }
 
     /**
@@ -138,6 +122,7 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
+        
         if(auth()->user()->id !== $product->user_id){
             return redirect('/products')->with('error', 'Unauthorized Page');
         }
