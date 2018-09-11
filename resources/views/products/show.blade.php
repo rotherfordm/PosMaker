@@ -3,10 +3,30 @@
 @section('content')
     <a href="/products" class="btn btn-primary">Go Back</a>  
     <h1>{{$product->name}}</h1>
-    {{$attributes}}
+    
+    <h3>Attributes</h3>
+    <table class="table">
+        
+            <td>Type</td>
+        
+            
+            <td>Name</td>
+    
+        @foreach($attributes as $attribute)
+        <tr>
+            <td>{{$attribute->type}}</td>
+        
+            
+        
+            <td>{{$attribute->name}}</td>
+        </tr>
+        
+        @endforeach
+    </table>
+
     <hr>
-    <small>Written on {{$product->created_at}} by {{$product->user->name}}</small>
-    <hr>
+    <!--
+    <small>Written on {{$product->created_at}} by {{$product->user->name}}</small> -->
     @if(!Auth::guest())
         @if(Auth::user()->id == $product->user_id)
             <a href="/products/{{$product->id}}/edit" class="btn btn-primary">Edit</a>
