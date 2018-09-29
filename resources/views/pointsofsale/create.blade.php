@@ -34,11 +34,20 @@
 
     <script>
 
+        var products = {};
+
             //Adds attribute to product
-            function makeattribute(id)
+            function makeattribute(product_number)
             {
-                x = document.getElementById('attributes' + id)
-                x.innerHTML = x.innerHTML + "<div id='attribute"+id+"' >\
+                //alert(product_number + 'prodnum');
+                var attribute_count = 1;
+                try{
+                attribute_count = products['product'+product_number+'']['attribute_count']; //Get total count    
+                } catch(err){
+                    alert(err.message);
+                }
+                x = document.getElementById('productattribute'+product_number+'')
+                x.innerHTML = x.innerHTML + "<div id='product"+product_number+"a"+ ++attribute_count +"' >\
                     <br><div class=container> \
                     \
                         <div class=\"input-group input-group-sm mb-3\">\
@@ -58,13 +67,19 @@
                     </div>\
                     \
                 </div>"
+                products['product'+product_number+'']['attribute_count'] = attribute_count;
+                console.log(products['product'+product_number+'']);
             }
 
             //Removes attribute to product
-            function removeattribute(id)
+            function removeattribute(product_number)
             {
-                x = document.getElementById('attribute' + id)
+                var attribute_number = products['product '+product_number+' ']['attribute_count'];
+                //Remove The HTML
+                x = document.getElementById('product' + product_number + attribute_number)
                 x.parentNode.removeChild(x);
+                //Remove The Attribute in the product JSON
+                //delete product['product '+product_number+' '];
             }
 
 
@@ -86,43 +101,69 @@
                 //Removes last inserted product
                 $("#removeproduct").click(function () 
                 {
-                    if(counter==1)
+                    var total_product_count = 0;
+
+                    try{
+                        total_product_count = Object.keys(products).length;
+                        alert(total_product_count)
+                    } catch(err){
+                        console.log(err.message);
+                    }
+
+                    if(total_product_count==0)
                     {
                         return false;
                     }   
-                    --counter;
-                    $("#p"+counter).remove();
+                    
+                    
+                    //Remove In the Html
+                    $("#product"+total_product_count).remove();
+                    //Remove In the products JSON
+                    delete products['product'+total_product_count+''];
+                    console.log('deleting');
+                    console.log(products);
                 });
 
                 //Adds input for custom products
                 $("#addproduct").click(function () 
                 {
+                    var total_product_count = 0;
+                    try{
+                        total_product_count = Object.keys(products).length;
+                    } catch(err){
+                        console.log(err.message);
+                    }
+                    
+                    ++total_product_count;
+
                     $("#products").html($("#products").html() + "\
-                    <div id='p"+counter+"' >\
-                    \
-                    \
-                    <br>\
-                    <div class=\"input-group mb-3\">\
-                        <div class=\"input-group-prepend\">\
-                            <span class=\"input-group-text\" id=\"inputGroup-sizing-default\">Product Name</span>\
+                        <div id='product"+total_product_count+"' >\
+                        \
+                        \
+                        <br>\
+                        <div class=\"input-group mb-3\">\
+                            <div class=\"input-group-prepend\">\
+                                <span class=\"input-group-text\" id=\"inputGroup-sizing-default\">Product Name</span>\
+                            </div>\
+                            <input type=\"text\" class=\"form-control\" aria-label=\"Sizing example input\" aria-describedby=\"inputGroup-sizing-default\">\
+                        </div> \
+                        \
+                        \
+                        <input type='button' value='add attributes' onclick='makeattribute("+total_product_count+");'  class=\"btn btn-primary\">\
+                        \
+                        \
+                        <input type='button' value='remove attributes' onclick='removeattribute("+total_product_count+");'  class=\"btn btn-danger\">\
+                        <br>\
+                        \
+                        \
+                        <div id='productattribute"+total_product_count+"'></div>\
+                        \
+                        \
                         </div>\
-                        <input type=\"text\" class=\"form-control\" aria-label=\"Sizing example input\" aria-describedby=\"inputGroup-sizing-default\">\
-                    </div> \
-                    \
-                    \
-                    <input type='button' value='add attributes' onclick='makeattribute("+counter+");' id='addattribute' class=\"btn btn-primary\">\
-                    \
-                    \
-                    <input type='button' value='remove attributes' onclick='removeattribute("+counter+");' id='addattribute' class=\"btn btn-danger\">\
-                    <br>\
-                    \
-                    \
-                    <div id='attributes"+counter+"'></div>\
-                    \
-                    \
-                    </div>\
                     ");
-                    ++counter; 
+                    
+                    products['product'+total_product_count+''] = { 'attribute_count': 0 };
+                    console.log(products); 
                 });
             
             
