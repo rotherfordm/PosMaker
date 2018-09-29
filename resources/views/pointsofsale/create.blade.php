@@ -74,30 +74,35 @@
             //Removes attribute to product
             function removeattribute(product_number)
             {
-                var attribute_number = products['product '+product_number+' ']['attribute_count'];
-                //Remove The HTML
-                x = document.getElementById('product' + product_number + attribute_number)
-                x.parentNode.removeChild(x);
-                //Remove The Attribute in the product JSON
-                //delete product['product '+product_number+' '];
+                //TODO fix this
+                var attribute_number = 0;
+                try{
+                    attribute_number = products['product'+product_number+'']['attribute_count'];
+                } catch(err){
+                    alert(err.message);
+                }
+
+                if(attribute_number > 0)
+                {
+                    //Remove The HTML
+                    x = document.getElementById('product'+product_number+'a'+attribute_number+'');
+                    x.parentNode.removeChild(x);
+
+                    //Minus The Count in the product JSON
+                    attribute_number = attribute_number - 1;
+                    console.log(attribute_number);
+                    products['product'+product_number+'']['attribute_count'] = attribute_number;
+                }
+                else{
+                    return false;
+                }
+                
             }
 
 
             $(document).ready(function(){
                 var counter = 1;
                 
-            
-                //Removes attribute from product
-                $('body').on('click', '#removeattribute', function ()
-                {
-                    if(counter==1)
-                    {
-                        return false;
-                    }   
-                    --counter;
-                    $("#d"+counter).remove();
-                });
-
                 //Removes last inserted product
                 $("#removeproduct").click(function () 
                 {
@@ -105,7 +110,6 @@
 
                     try{
                         total_product_count = Object.keys(products).length;
-                        alert(total_product_count)
                     } catch(err){
                         console.log(err.message);
                     }
