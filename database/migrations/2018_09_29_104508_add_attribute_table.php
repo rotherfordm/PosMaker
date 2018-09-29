@@ -30,6 +30,6 @@ class AddAttributeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attributes');
+        //
     }
 }

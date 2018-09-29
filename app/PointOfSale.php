@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class PointOfSale extends Model
 {
     // Table Name
-    protected $table = 'products';
+    protected $table = 'point_of_sale';
 
     // Primary Key
     public $primaryKey = 'id';
@@ -18,5 +18,4 @@ class Product extends Model
     public function user(){
         return $this->belongsTo('App\PointOfSale');
     }
-
 }

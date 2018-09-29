@@ -17,7 +17,7 @@ class AddProductTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
-            $table->integer('user_id');
+            $table->integer('pos_id');
             $table->string('cover_image');
         });
     }

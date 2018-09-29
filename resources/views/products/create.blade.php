@@ -26,10 +26,6 @@
            {!! Form::close() !!}
 
 <script>
-
-
-
-
 $(document).ready(function(){
     var counter = 1;
 
