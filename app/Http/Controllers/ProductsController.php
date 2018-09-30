@@ -88,8 +88,6 @@ class ProductsController extends Controller
         for($x = 0;$x < count($attributes); $x++)
         {
             $product_attribute = new Attribute;
-            //return $attributes;
-            //return $attributes[$x]["AttributeName".$attribute_counter];
             $product_attribute->type = $attributes[$x]["AttributeType".$attribute_counter];
             $product_attribute->name = $attributes[$x]["AttributeName".$attribute_counter];
             $product_attribute->product_id = $product->id;

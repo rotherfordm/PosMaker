@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PointOfSale extends Model
 {
     // Table Name
-    protected $table = 'point_of_sale';
+    protected $table = 'points_of_sale';
 
     // Primary Key
     public $primaryKey = 'id';

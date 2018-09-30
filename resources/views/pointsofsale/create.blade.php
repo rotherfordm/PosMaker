@@ -13,14 +13,14 @@
             <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
             </div>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input id="pos_name" name="pos_name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
         </div>
   
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Description</span>
             </div>
-            <textarea class="form-control" aria-label="With textarea"></textarea>
+            <textarea id="description" name="description" class="form-control" aria-label="With textarea"></textarea>
         </div>
      
         <br>
@@ -31,7 +31,10 @@
     <br><br>
     <div id='products'><!--Dynamic Products are here!--> </div>
     
-
+    <br>
+    <br>
+    {{Form::submit('Create Point of Sale',['class' => 'btn btn-primary'])}}
+    {!! Form::close() !!}
     <script>
 
         var products = {};
@@ -47,7 +50,8 @@
                     alert(err.message);
                 }
                 x = document.getElementById('productattribute'+product_number+'')
-                x.innerHTML = x.innerHTML + "<div id='product"+product_number+"a"+ ++attribute_count +"' >\
+                ++attribute_count;
+                x.innerHTML = x.innerHTML + "<div id='product"+product_number+"a"+attribute_count +"' >\
                     <br><div class=container> \
                     \
                         <div class=\"input-group input-group-sm mb-3\">\
@@ -55,13 +59,13 @@
                             <div class=\"input-group-prepend\">\
                                 <span class=\"input-group-text\" id=\"inputGroup-sizing-sm\">Attribute Name</span>\
                             </div>\
-                            <input type=\"text\" class=\"form-control\" aria-label=\"Sizing example input   aria-describedby=\"inputGroup-sizing-sm\">\
+                            <input name='product"+product_number+"a"+attribute_count +"name' type=\"text\" class=\"form-control\" aria-label=\"Sizing example input   aria-describedby=\"inputGroup-sizing-sm\">\
                             \
                             \
                             <div class=\"input-group-prepend\">\
                                 <span class=\"input-group-text\" id=\"inputGroup-sizing-sm\">Attribute Value</span>\
                             </div>\
-                            <input type=\"text\" class=\"form-control\" aria-label=\"Sizing example input   aria-describedby=\"inputGroup-sizing-sm\">\
+                            <input name='product"+product_number+"a"+attribute_count +"value' type=\"text\" class=\"form-control\" aria-label=\"Sizing example input   aria-describedby=\"inputGroup-sizing-sm\">\
                         </div>\
                         \
                     </div>\
@@ -149,7 +153,7 @@
                             <div class=\"input-group-prepend\">\
                                 <span class=\"input-group-text\" id=\"inputGroup-sizing-default\">Product Name</span>\
                             </div>\
-                            <input type=\"text\" class=\"form-control\" aria-label=\"Sizing example input\" aria-describedby=\"inputGroup-sizing-default\">\
+                            <input name='product"+total_product_count+"' type=\"text\" class=\"form-control\" aria-label=\"Sizing example input\" aria-describedby=\"inputGroup-sizing-default\">\
                         </div> \
                         \
                         \
