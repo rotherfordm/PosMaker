@@ -43,14 +43,15 @@
             function makeattribute(product_number)
             {
                 //alert(product_number + 'prodnum');
-                var attribute_count = 1;
+                var attribute_count = 0;
                 try{
                 attribute_count = products['product'+product_number+'']['attribute_count']; //Get total count    
                 } catch(err){
                     alert(err.message);
                 }
                 x = document.getElementById('productattribute'+product_number+'')
-                ++attribute_count;
+                if(attribute_count == null) {attribute_count = 0; }
+                //alert(attribute_count);
                 x.innerHTML = x.innerHTML + "<div id='product"+product_number+"a"+attribute_count +"' >\
                     <br><div class=container> \
                     \
@@ -71,6 +72,7 @@
                     </div>\
                     \
                 </div>"
+                ++attribute_count;
                 products['product'+product_number+'']['attribute_count'] = attribute_count;
                 console.log(products['product'+product_number+'']);
             }
@@ -85,15 +87,16 @@
                 } catch(err){
                     alert(err.message);
                 }
-
-                if(attribute_number > 0)
+                --attribute_number;
+                //alert(attribute_number);
+                if(attribute_number >= 0)
                 {
                     //Remove The HTML
                     x = document.getElementById('product'+product_number+'a'+attribute_number+'');
                     x.parentNode.removeChild(x);
 
                     //Minus The Count in the product JSON
-                    attribute_number = attribute_number - 1;
+                    //attribute_number = attribute_number - 1;
                     console.log(attribute_number);
                     products['product'+product_number+'']['attribute_count'] = attribute_number;
                 }
@@ -118,12 +121,12 @@
                         console.log(err.message);
                     }
 
-                    if(total_product_count==0)
+                    if(total_product_count < 0)
                     {
                         return false;
                     }   
                     
-                    
+                    total_product_count--;
                     //Remove In the Html
                     $("#product"+total_product_count).remove();
                     //Remove In the products JSON
@@ -142,7 +145,7 @@
                         console.log(err.message);
                     }
                     
-                    ++total_product_count;
+                    
 
                     $("#products").html($("#products").html() + "\
                         <div id='product"+total_product_count+"' >\
@@ -171,21 +174,12 @@
                     ");
                     
                     products['product'+total_product_count+''] = { 'attribute_count': 0 };
+                    ++total_product_count;
                     console.log(products); 
                 });
             
             
              });
-            
-             function setHiddenInputValue(text, counter){
-                $("#value"+counter).val(text);
-             }
-            
-            
-            function setType(id, text, counter)
-            {
-                $(id).text(text);
-                setHiddenInputValue(text, counter);
-            }
+        
             </script>
 @endsection

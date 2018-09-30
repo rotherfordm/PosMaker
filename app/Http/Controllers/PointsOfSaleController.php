@@ -49,7 +49,7 @@ class PointsOfSaleController extends Controller
         $products = array();
         $products_dict = array();
 
-        for($x = 1; $request->input('product'.$x) !== null ; $x++){
+        for($x = 0; $request->input('product'.$x) !== null ; $x++){
             array_push($products, $request->input('product'.$x));
         }
         #print_r($request->input('product'.'1'.'a'.'1'.'name'));
@@ -57,22 +57,23 @@ class PointsOfSaleController extends Controller
         #print_r($products);
         
         #Get all the Product's attribute
-        for($i = 1; $i <= count($products); $i++){
-            for($x = 1; $x <= 10; $x++){
+        for($i = 0; $i < count($products); $i++){
+            for($x = 0; $x < 20; $x++){
 
                 #print_r($products[$i - 1]);
                 #print_r('attribute'.$x);
                 #print_r(['name' => $request->input('product'.$i.'a'.$x.'name')]);
                 #print_r(['value' => $request->input('product'.$i.'a'.$x.'value')]);
+                print_r(['name' => $request->input('product0a0name')]);
 
                 if($request->input('product'.$i.'a'.$x.'name') == '' 
                 ||$request->input('product'.$i.'a'.$x.'value') == ''){
                     break;
                 }
 
-                array_push($products_dict, 
+                $products_dict += array(
                     [ 
-                        $products[$i - 1] => 
+                        $products[$i] => 
                         [ 
                             'attribute'.$x =>
                             [
@@ -82,13 +83,13 @@ class PointsOfSaleController extends Controller
                         ]
                     ]
                 );
-
-                
-                print_r('<br> iteration ' . $x);
-                print_r($products_dict);
+                #print_r('<br> iteration ' . $x);           
             }
         } 
 
+        #print_r($products_dict[0]['p1']['attribute1']);
+        #print_r($products_dict[0]['p1']['attribute2']);
+        print_r($products_dict);
 
         #print_r('<br> end ');
         #print_r($products_dict);
