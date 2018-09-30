@@ -31,6 +31,6 @@ class AddPointOfSaleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pos');
+        Schema::dropIfExists('points_of_sale');
     }
 }

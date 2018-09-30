@@ -16,10 +16,9 @@ class AddAttributeTable extends Migration
         Schema::create('attributes', function(Blueprint $table){
             $table->increments('id');
             $table->string('name');
-            $table->string('type');
+            $table->string('value');
             $table->integer('product_id');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -30,6 +29,6 @@ class AddAttributeTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('attributes');
     }
 }
