@@ -4,7 +4,6 @@
     <h3>POSMAKER</h3>
     <table class="table">
         <tr>
-
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="/storage/cover_images/{{$point_of_sale->cover_image}}" alt="Card image cap">
                 <div class="card-body">
@@ -19,11 +18,15 @@
         
 
     </table>
+        <a href="/addsupply/{{$point_of_sale->id}}" class="btn btn-primary">Add Supply</a>
+        <a href="/buyingtransactions/{{$point_of_sale->id}}" class="btn btn-primary">Add Transaction</a>
 
+        <br><br>
         Product List:
         @foreach($products as $product)
             <ul class="list-group">
                 <li class="list-group-item">Product Name: {{$product['ProductName']}}</li>
+                <li class="list-group-item">Product Price: {{$product['ProductPrice']}}</li>
                 @foreach($product['Attributes'] as $attribute )
                     <li class="list-group-item">Attribute: {{$attribute->name}}</li>
                 @endforeach

@@ -160,6 +160,14 @@
                         </div> \
                         \
                         \
+                        <div class=\"input-group mb-3\">\
+                            <div class=\"input-group-prepend\">\
+                                <span class=\"input-group-text\" id=\"inputGroup-sizing-default\">Product Price</span>\
+                            </div>\
+                            <input name='productprice"+total_product_count+"' type=\"text\" class=\"form-control\" aria-label=\"Sizing example input\" aria-describedby=\"inputGroup-sizing-default\">\
+                        </div> \
+                        \
+                        \
                         <input type='button' value='add attributes' onclick='makeattribute("+total_product_count+");'  class=\"btn btn-primary\">\
                         \
                         \

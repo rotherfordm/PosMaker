@@ -50,8 +50,8 @@ class BuyingTransactionController extends Controller
     public function show($id)
     {
         $point_of_sale = PointOfSale::find($id);
-        #$products = Product::where('pos_id',$id)->get();
-        return view('buyingtransactions.show')->with('point_of_sale',$point_of_sale);;
+        $products = Product::where('pos_id',$id)->get();
+        return view('buyingtransactions.show')->with('point_of_sale',$point_of_sale)->with('products',$products);
     }
 
     /**

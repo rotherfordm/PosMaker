@@ -18,6 +18,7 @@ class AddProductTable extends Migration
             $table->string('name');
             $table->timestamps();
             $table->integer('pos_id');
+            $table->double('price');
         });
     }
 

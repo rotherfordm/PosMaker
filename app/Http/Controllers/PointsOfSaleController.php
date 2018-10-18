@@ -74,6 +74,7 @@ class PointsOfSaleController extends Controller
             $product = new Product; //Create Product Object
             $product->name = $products[$i]; //Product Name
             $product->pos_id = $pos->id;
+            $product->price = $request->input('productprice'.$i);
             $product->save();
 
             for($x = 0; $x < 20; $x++){ //20 attributes max?
@@ -100,22 +101,12 @@ class PointsOfSaleController extends Controller
     {
         $point_of_sale = PointOfSale::find($id);
         $products = Product::where('pos_id',$id)->get();
-        
 
         $new_products = array();
         foreach($products as $product)
         {
-            $new_products[] = array("ProductName" =>  $product->name, "Attributes" => Attribute::where('product_id', $product->id)->get());
+            $new_products[] = array("ProductName" =>  $product->name, "ProductPrice" =>  $product->price,"Attributes" => Attribute::where('product_id', $product->id)->get());
         }
-        /*
-        foreach($new_products as $new_product)
-        {
-            print_r($new_product['ProductName']);
-            foreach($new_product['Attributes'] as $attribute)
-            {
-                print_r($attribute->name);
-            }
-        } */
         return view('pointsofsale.show')->with('point_of_sale', $point_of_sale)->with('products',  $new_products);
     }
 
