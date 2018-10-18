@@ -33,5 +33,6 @@ Route::get('/services', 'PagesController@services');
 Route::resource('pos', 'PointsOfSaleController');
 Route::resource('products', 'ProductsController');
 Route::resource('buyingtransactions', 'BuyingTransactionController');
+Route::resource('addsupply', 'AddSupplyController');
 
 Auth::routes();
