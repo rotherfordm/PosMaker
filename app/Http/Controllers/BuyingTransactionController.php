@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Input;
 
 use App\BuyingTransaction;
 use App\Product;
-use App\Attribute;
 use App\PointOfSale;
 class BuyingTransactionController extends Controller
 {
