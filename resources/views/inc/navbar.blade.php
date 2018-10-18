@@ -24,7 +24,7 @@
                       </li>
 
                       <li class="nav-item">
-                            <a class="nav-link" href="/products">Products</a>
+                            <a class="nav-link" href="/pos/create">Create POS</a>
                         </li>
                 </ul>
                 
@@ -46,7 +46,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/products/create">Make a Custom Product</a>
+                                <a class="dropdown-item" href="/pos/create">Make a Custom POS</a>
 
                                 <!--
                                 <a class="dropdown-item" href="/dashboard">Dashboard</a> -->

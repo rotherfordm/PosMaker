@@ -98,7 +98,25 @@ class PointsOfSaleController extends Controller
      */
     public function show($id)
     {
-        return view('pointsofsale.show');
+        $point_of_sale = PointOfSale::find($id);
+        $products = Product::where('pos_id',$id)->get();
+        
+
+        $new_products = array();
+        foreach($products as $product)
+        {
+            $new_products[] = array("ProductName" =>  $product->name, "Attributes" => Attribute::where('product_id', $product->id)->get());
+        }
+        /*
+        foreach($new_products as $new_product)
+        {
+            print_r($new_product['ProductName']);
+            foreach($new_product['Attributes'] as $attribute)
+            {
+                print_r($attribute->name);
+            }
+        } */
+        return view('pointsofsale.show')->with('point_of_sale', $point_of_sale)->with('products',  $new_products);
     }
 
     /**
