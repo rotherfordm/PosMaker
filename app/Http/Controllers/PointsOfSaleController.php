@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Attribute;
 use App\PointOfSale;
+use App\AddSupply;
+use App\BuyingTransaction;
 
 class PointsOfSaleController extends Controller
 {
@@ -101,13 +103,55 @@ class PointsOfSaleController extends Controller
     {
         $point_of_sale = PointOfSale::find($id);
         $products = Product::where('pos_id',$id)->get();
+        
+        foreach($products as $product)
+        {
+            
+            $supply = 0;
+            $buying= 0;
+
+            $addsupply = AddSupply::where('product_id', $product->id)->get();
+            $buyingtrans = BuyingTransaction::where('product_id', $product->id)->get();
+
+            foreach($addsupply as $sup)
+            {
+                $supply = (float)$supply + (float)$sup->quantity;
+            }
+            
+            foreach($buyingtrans as $buy)
+            {
+                $buying = (float)$buying + (float)$buy->quantity;
+            }
+            
+            $available_supply = $supply - $buying;
+            
+
+            if(is_numeric($available_supply))
+            {
+                $product->supply = $available_supply;
+            }
+            else
+            {
+                $product->supply = 0;
+            } 
+
+            
+        }
 
         $new_products = array();
         foreach($products as $product)
         {
-            $new_products[] = array("ProductName" =>  $product->name, "ProductPrice" =>  $product->price,"Attributes" => Attribute::where('product_id', $product->id)->get());
+            $new_products[] = 
+                array(
+                    "ProductName" =>  $product->name, 
+                    "ProductPrice" =>  $product->price,
+                    "Attributes" => Attribute::where('product_id', $product->id)->get(),
+                    "CurrentSupply" => $product->supply
+                );
         }
-        return view('pointsofsale.show')->with('point_of_sale', $point_of_sale)->with('products',  $new_products);
+
+
+        return view('pointsofsale.show')->with('point_of_sale', $point_of_sale)->with('products',  $new_products); 
     }
 
     /**

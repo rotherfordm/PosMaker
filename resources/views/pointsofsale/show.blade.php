@@ -27,10 +27,12 @@
             <ul class="list-group">
                 <li class="list-group-item">Product Name: {{$product['ProductName']}}</li>
                 <li class="list-group-item">Product Price: {{$product['ProductPrice']}}</li>
+                <li class="list-group-item">Current Supply: {{$product['CurrentSupply']}}</li>
                 @foreach($product['Attributes'] as $attribute )
                     <li class="list-group-item">Attribute: {{$attribute->name}}</li>
                 @endforeach
             </ul>
+            <br>
         @endforeach
 
 @endsection

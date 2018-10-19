@@ -73,38 +73,6 @@ class AddSupplyController extends Controller
         $point_of_sale = PointOfSale::find($id);
         $products = Product::where('pos_id',$id)->get();
         
-        /*
-        foreach($products as $product)
-        {
-            
-            $supply = 0;
-            $buying= 0;
-
-            $addsupply = AddSupply::where('product_id', $product->id)->get();
-            $buyingtrans = BuyingTransaction::where('product_id', 3)->get();
-
-            foreach($addsupply as $sup)
-            {
-                $supply = (float)$supply + (float)$sup->quantity;
-            }
-            
-            foreach($buyingtrans as $buy)
-            {
-                $buying = (float)$buying + (float)$buy->quantity;
-            }
-            
-            $available_supply = $supply - $buying;
-            
-
-            if(is_numeric($available_supply))
-            {
-                $product->supply = $available_supply;
-            }
-            else
-            {
-                $product->supply = 0;
-            } 
-        }*/
         $i = 1;
         foreach($products as $product)
         {
