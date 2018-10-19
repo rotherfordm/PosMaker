@@ -18,16 +18,22 @@
         
 
     </table>
+
         <a href="/addsupply/{{$point_of_sale->id}}" class="btn btn-primary">Add Supply</a>
         <a href="/buyingtransactions/{{$point_of_sale->id}}" class="btn btn-primary">Add Transaction</a>
 
         <br><br>
+        Total Income: {{$total_income}}
+        <br><br>
+        
         Product List:
         @foreach($products as $product)
             <ul class="list-group">
                 <li class="list-group-item">Product Name: {{$product['ProductName']}}</li>
                 <li class="list-group-item">Product Price: {{$product['ProductPrice']}}</li>
                 <li class="list-group-item">Current Supply: {{$product['CurrentSupply']}}</li>
+                <li class="list-group-item">All Supply Transaction: {{$product['AllSupply']}}</li>
+                <li class="list-group-item">All Buying Transaction: {{$product['AllBuying']}}</li>
                 @foreach($product['Attributes'] as $attribute )
                     <li class="list-group-item">Attribute: {{$attribute->name}}</li>
                 @endforeach

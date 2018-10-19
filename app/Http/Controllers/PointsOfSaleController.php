@@ -124,7 +124,8 @@ class PointsOfSaleController extends Controller
             }
             
             $available_supply = $supply - $buying;
-            
+            $product->allsupply = $supply;
+            $product->allbuying = $buying;
 
             if(is_numeric($available_supply))
             {
@@ -138,6 +139,13 @@ class PointsOfSaleController extends Controller
             
         }
 
+        $total_income = 0;
+
+        foreach($products as $product)
+        {
+            $total_income = $total_income + ($product->allbuying * $product->price);
+        }
+
         $new_products = array();
         foreach($products as $product)
         {
@@ -146,12 +154,15 @@ class PointsOfSaleController extends Controller
                     "ProductName" =>  $product->name, 
                     "ProductPrice" =>  $product->price,
                     "Attributes" => Attribute::where('product_id', $product->id)->get(),
-                    "CurrentSupply" => $product->supply
+                    "CurrentSupply" => $product->supply,
+                    "AllSupply" => $product->allsupply,
+                    "AllBuying" => $product->allbuying
                 );
         }
 
+        
 
-        return view('pointsofsale.show')->with('point_of_sale', $point_of_sale)->with('products',  $new_products); 
+        return view('pointsofsale.show')->with('point_of_sale', $point_of_sale)->with('products',  $new_products)->with('total_income', $total_income); 
     }
 
     /**
