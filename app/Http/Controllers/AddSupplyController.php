@@ -60,6 +60,9 @@ class AddSupplyController extends Controller
                 $addsupply->product_id = $product['ProductID'];
                 $addsupply->save();
             }
+
+        $pos = PointOfSale::where('user_id', auth()->user()->id)->get();
+        return view('pointsofsale.index')->with('points_of_sale',$pos);
     }
 
     /**

@@ -56,6 +56,9 @@ class BuyingTransactionController extends Controller
              $buyingtransaction->save();
          } 
 
+         $pos = PointOfSale::where('user_id', auth()->user()->id)->get();
+        return view('pointsofsale.index')->with('points_of_sale',$pos);
+
     }
 
     /**

@@ -12,6 +12,7 @@
         </tr>
 
 
+
         <tr><td>Point of Sale Name: {{$point_of_sale->name}}</td></tr>
         <tr><td>Point of Sale Description: <br> {{$point_of_sale->description}}</td></tr>
         <tr><td>Point of Sale Created At: {{$point_of_sale->created_at}}</td></tr>

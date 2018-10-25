@@ -18,8 +18,13 @@ class PointsOfSaleController extends Controller
      */
     public function index()
     {
-        #$pos = POS::orderBy('created_at','desc')->paginate(10); //pagination   
-        return view('pointsofsale.index');
+        #$pos = PointOfSale::orderBy('created_at','desc')->paginate(10); //pagination   
+        #$pos = PointOfSale::all();
+        //$products = Product::where('pos_id',$id)->get();
+        $pos = PointOfSale::where('user_id', auth()->user()->id)->get();
+        //print_r(auth()->user()->id);
+        //print_r($pos);
+        return view('pointsofsale.index')->with('points_of_sale',$pos);
     }
 
     /**
@@ -91,6 +96,9 @@ class PointsOfSaleController extends Controller
                 }
             }
         } 
+        
+        $pos = PointOfSale::where('user_id', auth()->user()->id)->get();
+        return view('pointsofsale.index')->with('points_of_sale',$pos);
     }
 
     /**
